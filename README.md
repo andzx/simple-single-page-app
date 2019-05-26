@@ -1,2 +1,3 @@
-# simple-single-page-app
-A simple single page app boilerplate. Comes with a router and uses plain JavaScript.
+# A simple signle page app
+A simple single page app boilerplate.
+Written in plain JavaScript and comes with a router.
