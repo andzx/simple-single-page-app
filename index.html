@@ -137,32 +137,63 @@
         }
 
         // App routing function
-        app.navigate = function(location) {
+        app.navigate = function(location, direction) {
+            // Don't navigate if already there
+            if (location == app.location) {
+                return;
+            }
+        
+            console.log("location", location);
+
             // Set app location
             app.location = location;
             
             // Check if location exists
-            if (location === "/") {
+            if (location === "/" || location === "" || location === undefined) {
                 // Navigate to index
                 controllers.pages["index"]();
+                controllers.partials.navigation();
             } else if (controllers.pages[location]) {
                 // Navigate to location
                 controllers.pages[location]();
+                controllers.partials.navigation();
             } else {
                 // Display the 404 page
                 controllers.pages.error404();
             }
             
-            // Add navigation to any links
-            controllers.partials.navigation();
+            // Set url
+            if (direction) {
+                window.history.replaceState(null, null, location);
+                return;
+            }
+            
+            // Add new history location
+            window.history.pushState(null, null, location);
         }
 
-        // Initialize the app once all content has loaded
+        /*-----------------------------------------------*/
+        /*              App initialization               */
+        /*-----------------------------------------------*/
         window.addEventListener("load", function() {
+            // Set initial page location
+            window.history.pushState(null, null, location);
+        
+            // Listen for page changes
+            window.onpopstate = function(event) {
+                // Get the requested location
+                if(window.location.pathname != "/") {
+                    var location = window.location.pathname.substr(1);
+                }
+
+                // Navigate to the requested page
+                app.navigate(location, true);
+            };
+        
             // Get the initial page that was requested
             var location = window.location.pathname;
 
-            // Render the initial page
+            // Navigate to the requested page
             app.navigate(location);
         });
     </script>
