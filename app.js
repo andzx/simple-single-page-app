@@ -88,7 +88,6 @@ app.navigate = function(location, direction) {
         return;
     }
 
-    console.log("location", location);
     // Set app location
     app.location = location;
     
@@ -115,6 +114,7 @@ app.navigate = function(location, direction) {
     // Add new history location
     window.history.pushState(null, null, location);
 }
+
 /*-----------------------------------------------*/
 /*              App initialization               */
 /*-----------------------------------------------*/
@@ -132,12 +132,14 @@ window.addEventListener("load", function() {
         if(window.location.pathname != "/") {
             var location = window.location.pathname.substr(1);
         }
+
         // Navigate to the requested page
         app.navigate(location, true);
     };
 
     // Get the initial page that was requested
-    var location = window.location.pathname;
+    var location = window.location.pathname.substr(1);
+
     // Navigate to the requested page
     app.navigate(location);
 });
