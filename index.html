@@ -1,170 +1,170 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Single page application with a router</title>
-	<style>
-		* {
-			box-sizing: border-box;
-			font-family:"Verdana";
-		}
-		.container {
-			display:table;
-			min-width:920px;
-			max-width:920px;
-			margin:0 auto;
-			padding:5px;
-			border:2px dashed #ccc;
-			margin-top:125px;
-		}
-		header, nav, footer, .content {
-			width:100%;
-			padding:5px;
-			border:2px dashed #ccc;
-		}
-		header, footer {
-			display:flex;
-			justify-content: center;
-			align-items: center;
-		}
-		nav, .content, footer {
-			margin-top:5px;
-		}
-		header {
-			height:150px;
-		}
-		.content {
-			height:350px;
-		}
-		.link {
-			cursor:pointer;
-		}
-	</style>
+    <title>Single page application with a router</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family:"Verdana";
+        }
+        .container {
+            display:table;
+            min-width:920px;
+            max-width:920px;
+            margin:0 auto;
+            padding:5px;
+            border:2px dashed #ccc;
+            margin-top:125px;
+        }
+        header, nav, footer, .content {
+            width:100%;
+            padding:5px;
+            border:2px dashed #ccc;
+        }
+        header, footer {
+            display:flex;
+            justify-content: center;
+            align-items: center;
+        }
+        nav, .content, footer {
+            margin-top:5px;
+        }
+        header {
+            height:150px;
+        }
+        .content {
+            height:350px;
+        }
+        .link {
+            cursor:pointer;
+        }
+    </style>
 </head>
 <body>
-	<div class="app"></div>
+    <div class="app"></div>
 
-	<script type="text/javascript">
-		app = {}; // Holds any app global variables and functions
-		controllers = {}; // Holds all app controllers
-		controllers.pages = {}; // Holds all page controllers
-		controllers.partials = {}; // Holds all partial controllers
-		views = {}; // Holds all app views
-		views.pages = {}; // Holds all page views
-		views.partials = {}; // Holds all partial views
+    <script type="text/javascript">
+        app = {}; // Holds any app global variables and functions
+        controllers = {}; // Holds all app controllers
+        controllers.pages = {}; // Holds all page controllers
+        controllers.partials = {}; // Holds all partial controllers
+        views = {}; // Holds all app views
+        views.pages = {}; // Holds all page views
+        views.partials = {}; // Holds all partial views
 
-		/*-----------------------------------------------*/
-		/*                 App page views                */
-		/*-----------------------------------------------*/
-		views.pages.index = '\
-			<div class="container">\
-				<header>Header</header>\
-				<nav class="navigation">\
-					<span class="link" data-location="index">Index</span>\
-					<span class="link" data-location="about">About</span>\
-					<span class="link" data-location="contact">Contact</span>\
-				</nav>\
-				<div class="content"></div>\
-				<footer>&copy; Copyright notice</footer>\
-			</div>';
+        /*-----------------------------------------------*/
+        /*                 App page views                */
+        /*-----------------------------------------------*/
+        views.pages.index = '\
+            <div class="container">\
+                <header>Header</header>\
+                <nav class="navigation">\
+                    <span class="link" data-location="index">Index</span>\
+                    <span class="link" data-location="about">About</span>\
+                    <span class="link" data-location="contact">Contact</span>\
+                </nav>\
+                <div class="content"></div>\
+                <footer>&copy; Copyright notice</footer>\
+            </div>';
 
-		views.pages.error404 = '\
-			<h1>404, not found</h1>\
-			<p>The content you\'re looking for could not be found.</p>';
+        views.pages.error404 = '\
+            <h1>404, not found</h1>\
+            <p>The content you\'re looking for could not be found.</p>';
 
-		/*-----------------------------------------------*/
-		/*               App partial views               */
-		/*-----------------------------------------------*/
-		views.partials.index = '\
-			<p>Landing page content</p>';
+        /*-----------------------------------------------*/
+        /*               App partial views               */
+        /*-----------------------------------------------*/
+        views.partials.index = '\
+            <p>Landing page content</p>';
 
-		views.partials.about = '\
-			<p>About page content</p>';
-		
-		views.partials.contact = '\
-			<p>Contact page content</p>';
+        views.partials.about = '\
+            <p>About page content</p>';
+        
+        views.partials.contact = '\
+            <p>Contact page content</p>';
 
-		/*-----------------------------------------------*/
-		/*                App controllers                */
-		/*-----------------------------------------------*/
-		controllers.pages.index = function() {
-			// Render the view
-			app.render(".app", views.pages.index);
-			app.render(".content", views.partials.index);
-		}
+        /*-----------------------------------------------*/
+        /*                App controllers                */
+        /*-----------------------------------------------*/
+        controllers.pages.index = function() {
+            // Render the view
+            app.render(".app", views.pages.index);
+            app.render(".content", views.partials.index);
+        }
 
-		controllers.pages.about = function() {
-			app.render(".app", views.pages.index);
-			app.render(".content", views.partials.about);
-		}
+        controllers.pages.about = function() {
+            app.render(".app", views.pages.index);
+            app.render(".content", views.partials.about);
+        }
 
-		controllers.pages.contact = function() {
-			app.render(".app", views.pages.index);
-			app.render(".content", views.partials.contact);
-		}
+        controllers.pages.contact = function() {
+            app.render(".app", views.pages.index);
+            app.render(".content", views.partials.contact);
+        }
 
-		controllers.pages.error404 = function() {
-			app.render(".app", views.pages.error404);
-		}
+        controllers.pages.error404 = function() {
+            app.render(".app", views.pages.error404);
+        }
 
-		/*-----------------------------------------------*/
-		/*            App partial controllers            */
-		/*-----------------------------------------------*/
-		controllers.partials.navigation = function() {
-			// Add navigation functionality
-			var links = document.querySelectorAll(".link");
+        /*-----------------------------------------------*/
+        /*            App partial controllers            */
+        /*-----------------------------------------------*/
+        controllers.partials.navigation = function() {
+            // Add navigation functionality
+            var links = document.querySelectorAll(".link");
 
-			for (var i = 0; i < links.length; i++) {
-				links[i].addEventListener("click", function() {
-					app.navigate(this.dataset.location);
-				});
-			}
-		}
+            for (var i = 0; i < links.length; i++) {
+                links[i].addEventListener("click", function() {
+                    app.navigate(this.dataset.location);
+                });
+            }
+        }
 
-		/*-----------------------------------------------*/
-		/*             App general variables             */
-		/*-----------------------------------------------*/
-		app.location = null;
+        /*-----------------------------------------------*/
+        /*             App general variables             */
+        /*-----------------------------------------------*/
+        app.location = null;
 
-		/*-----------------------------------------------*/
-		/*             App general functions             */
-		/*-----------------------------------------------*/
-		
-		// App view rendering function
-		app.render = function(target, view) {
-			var target = document.querySelector(target);
-			target.innerHTML = "";
-			target.insertAdjacentHTML('beforeend', view);
-		}
+        /*-----------------------------------------------*/
+        /*             App general functions             */
+        /*-----------------------------------------------*/
+        
+        // App view rendering function
+        app.render = function(target, view) {
+            var target = document.querySelector(target);
+            target.innerHTML = "";
+            target.insertAdjacentHTML('beforeend', view);
+        }
 
-		// App routing function
-		app.navigate = function(location) {
-			// Set app location
-			app.location = location;
-			
-			// Check if location exists
-			if (location === "/") {
-				// Navigate to index
-				controllers.pages["index"]();
-			} else if (controllers.pages[location]) {
-				// Navigate to location
-				controllers.pages[location]();
-			} else {
-				// Display the 404 page
-				controllers.pages.error404();
-			}
-			
-			// Add navigation to any links
-			controllers.partials.navigation();
-		}
+        // App routing function
+        app.navigate = function(location) {
+            // Set app location
+            app.location = location;
+            
+            // Check if location exists
+            if (location === "/") {
+                // Navigate to index
+                controllers.pages["index"]();
+            } else if (controllers.pages[location]) {
+                // Navigate to location
+                controllers.pages[location]();
+            } else {
+                // Display the 404 page
+                controllers.pages.error404();
+            }
+            
+            // Add navigation to any links
+            controllers.partials.navigation();
+        }
 
-		// Initialize the app once all content has loaded
-		window.addEventListener("load", function() {
-			// Get the initial page that was requested
-			var location = window.location.pathname;
+        // Initialize the app once all content has loaded
+        window.addEventListener("load", function() {
+            // Get the initial page that was requested
+            var location = window.location.pathname;
 
-			// Render the initial page
-			app.navigate(location);
-		});
-	</script>
+            // Render the initial page
+            app.navigate(location);
+        });
+    </script>
 </body>
 </html>
