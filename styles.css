@@ -1,0 +1,35 @@
+* {
+    box-sizing: border-box;
+    font-family:"Verdana";
+}
+.container {
+    display:table;
+    min-width:920px;
+    max-width:920px;
+    margin:0 auto;
+    padding:5px;
+    border:2px dashed #ccc;
+    margin-top:125px;
+}
+header, nav, footer, .content {
+    width:100%;
+    padding:5px;
+    border:2px dashed #ccc;
+}
+header, footer {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+nav, .content, footer {
+    margin-top:5px;
+}
+header {
+    height:150px;
+}
+.content {
+    height:350px;
+}
+.link {
+    cursor:pointer;
+}
