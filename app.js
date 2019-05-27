@@ -82,7 +82,7 @@ app.render = function(target, view) {
     target.insertAdjacentHTML('beforeend', view);
 }
 // App routing function
-app.navigate = function(location, direction) {
+app.navigate = function(location, newLocation) {
     // Don't navigate if already there
     if (location == app.location) {
         return;
